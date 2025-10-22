@@ -1,5 +1,5 @@
-
 import React, { Component } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 class ClassComponent extends Component {
   state = {
@@ -51,50 +51,111 @@ class ClassComponent extends Component {
     }
   };
 
+  handleGoHome = () => {
+    window.location.href = '/';
+  };
+
+  
   //Отрисовка
   render() {
     const { firstName, lastName, age, savedData } = this.state;
     const valid = this.isValid();
 
+    const rowStyle = {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: 10,
+    };
+
+    const labelStyle = {
+      width: 80, 
+      marginRight: 10,
+      textAlign: 'right',
+    };
+
+    const submitButtonStyle = {
+      marginTop: 10,
+      padding: '6px 12px',
+      cursor: valid ? 'pointer' : 'not-allowed',
+      backgroundColor: valid ? 'green' : 'red',
+      color: 'white',
+      border: 'none',
+      borderRadius: 4,
+      transition: 'background-color 0.3s',
+    };
+
+    const homeButtonStyle = {
+      marginLeft: 10,
+      padding: '6px 12px',
+      backgroundColor: '#007bff',
+      color: 'white',
+      border: 'none',
+      borderRadius: 4,
+      cursor: 'pointer',
+      transition: 'background-color 0.3s',
+    };
+
     return (
       <div style={{ padding: 20 }}>
         <form onSubmit={this.handleSave} style={{ marginBottom: 20 }}>
-          <label>
-            Имя:
+          <div style={rowStyle}>
+            <label style={labelStyle} htmlFor="firstName">Имя</label>
             <input
               type="text"
+              id="firstName"
               name="firstName"
               value={firstName}
               onChange={this.handleChange}
               required
               autoFocus
             />
-          </label>
-          <br />
-          <label>
-            Фамилия:
+            {savedData && (
+            <div style={{ marginTop: 5 }}>
+              Последнее имя: <b>{savedData.firstName}</b>
+            </div>
+          )}
+          </div>
+          <div style={rowStyle}>
+            <label style={labelStyle} htmlFor="lastName">Фамилия</label>
             <input
               type="text"
+              id="lastName"
               name="lastName"
               value={lastName}
               onChange={this.handleChange}
               required
             />
-          </label>
-          <br />
-          <label>
-            Лет:
+            {savedData && (
+            <div style={{ marginTop: 5 }}>
+              Последняя фамилия: <b>{savedData.lastName}</b>
+            </div>
+          )}
+          </div>
+          <div style={rowStyle}>
+            <label style={labelStyle} htmlFor="age">Лет</label>
             <input
               type="text"
+              id="age"
               name="age"
               value={age}
               onChange={this.handleChange}
               required
             />
-          </label>
-          <br />
-          <button type="submit" disabled={!valid} style={{ marginTop: 10 }}>
+            {savedData && (
+            <div style={{ marginTop: 5 }}>
+              Последний возраст: <b>{savedData.age}</b>
+            </div>
+          )}
+          </div>
+          <button type="submit" disabled={!valid} style={submitButtonStyle}>
             Отправить
+          </button>
+          <button
+            type="button"
+            onClick={this.handleGoHome}
+            style={homeButtonStyle}
+          >
+            Главное меню
           </button>
         </form>
 
@@ -114,3 +175,5 @@ class ClassComponent extends Component {
 }
 
 export default ClassComponent;
+
+
