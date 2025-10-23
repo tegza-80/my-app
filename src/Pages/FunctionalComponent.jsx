@@ -6,16 +6,16 @@ import axios from 'axios';
 function FunctionalComponent() {
   const navigate = useNavigate();
 
-  // Состояния для фильтров
-  const [minAge, setMinAge] = useState('');
-  const [maxAge, setMaxAge] = useState('');
-  const [sortOrder, setSortOrder] = useState('none'); // none, asc, desc
-  const [filtersEnabled, setFiltersEnabled] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // Состояния для сортировки
+  const [minAge, setMinAge] = useState('');//строки для ввода минимального возраста 
+  const [maxAge, setMaxAge] = useState('');//строки для ввода максимального возраста 
+  const [sortOrder, setSortOrder] = useState('none');//сортировка (без сортировки)
+  const [filtersEnabled, setFiltersEnabled] = useState(false);//флаг включающий/отключающий фильтры и сортировку.
+  const [users, setUsers] = useState([]);//массив пользователей
+  const [loading, setLoading] = useState(false);//индикатор загрузки данных
+  const [error, setError] = useState(null);//ошибка при загрузке данных
 
-  // Валидация input - только цифры
+  // Валидация только цифры
   const handleMinAgeChange = e => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) setMinAge(value);
@@ -76,9 +76,9 @@ function FunctionalComponent() {
       });
 
       // Сортировка по возрасту
-      if (sortOrder === 'asc') {
+      if (sortOrder === 'asc') {//по возрастанию возраста
         filtered.sort((a, b) => a.dob.age - b.dob.age);
-      } else if (sortOrder === 'desc') {
+      } else if (sortOrder === 'desc') {//по убыванию
         filtered.sort((a, b) => b.dob.age - a.dob.age);
       }
     }
@@ -94,8 +94,7 @@ function FunctionalComponent() {
   };
 
   return (
-    <div style={{ padding: 20, fontFamily: 'Arial, sans-serif' }}>
-      {/* Фильтры и навигация */}
+    <div style={{ padding: 20, fontFamily: 'Arial, sans-serif' }}>{}
       <div style={{ marginBottom: 20, borderBottom: '1px solid #ccc', paddingBottom: 10 }}>
         <button onClick={() => navigate('/')} style={{ marginRight: 20 }}>
           Главная страница
